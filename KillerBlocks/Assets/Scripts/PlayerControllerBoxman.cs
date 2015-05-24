@@ -30,6 +30,7 @@ public class PlayerControllerBoxman : MonoBehaviour
      {
           if (Input.GetButton("right"))
           {
+
                anim.SetBool("Running", true);
                transform.position += -transform.right * Speed;
 
@@ -42,6 +43,7 @@ public class PlayerControllerBoxman : MonoBehaviour
           }
           if (Input.GetButton("left"))
           {
+
                anim.SetBool("Running", true);
                transform.position += -transform.right * Speed;
 
@@ -55,6 +57,7 @@ public class PlayerControllerBoxman : MonoBehaviour
           if (Input.GetButtonDown("Jump"))
           {
                PlayerRigid.AddForce(0, JumpPower, 0);
+
           }
           anim.SetBool("Running", false);
      }
