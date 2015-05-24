@@ -4,9 +4,9 @@ using System;
 
 public class BlockGenerator : MonoBehaviour
 {
-     GameObject SqaurePrefab = null;
-     GameObject LPrefab = null;
-     GameObject PlusPrefab = null;
+     public GameObject SqaurePrefab = null;
+     public GameObject LPrefab = null;
+     public GameObject PlusPrefab = null;
      System.Random RandomPrefabGenerator = new System.Random();
 
 
