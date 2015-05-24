@@ -37,19 +37,24 @@ public class BlockGenerator : MonoBehaviour
      void spawnPrefab()
      {
           spawnLocation = Player.transform.position;
-          spawnLocation.y += 10;
-          typeOfPrefab = RandomPrefabGenerator.Next(1, 3);
+          spawnLocation.y += 15;
+          typeOfPrefab = RandomPrefabGenerator.Next(1, 4);
           if (typeOfPrefab == 1)
           {
                Instantiate(SqaurePrefab, spawnLocation, Quaternion.identity);
           }
           else if (typeOfPrefab == 2)
           {
+
                Instantiate(LPrefab, spawnLocation, Quaternion.identity);
           }
           else if (typeOfPrefab == 3)
           {
                Instantiate(PlusPrefab, spawnLocation, Quaternion.identity);
+          }
+          else if (typeOfPrefab == 4)
+          {
+               Instantiate(IPrefab, spawnLocation, Quaternion.identity);
           }
      }
 }
