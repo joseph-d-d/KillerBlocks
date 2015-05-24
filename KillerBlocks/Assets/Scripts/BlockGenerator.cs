@@ -15,7 +15,7 @@ public class BlockGenerator : MonoBehaviour
      void Update()
      {
           int typeOfPrefab = RandomPrefabGenerator.Next(1, 3);
-          if(timeTillNextSpawn >= )
+
           if(typeOfPrefab == 1)
           {
                Instantiate(SqaurePrefab);
