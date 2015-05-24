@@ -29,18 +29,12 @@ public class PlayerController : MonoBehaviour
           {
                jumpcount--;
                movement = new Vector3(move, jumpHeight, 0.0f);
+               GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
                GetComponent<Rigidbody>().AddForce(movement * speed * Time.deltaTime);
           }
           else
           {
-              if(movement.x > 0.1f)
-              {
-                  movement = new Vector3(0.1f, 0.0f, 0.0f);
-              }
-              else
-              {
-                  movement = new Vector3(move, 0.0f, 0.0f);
-              }
+              movement = new Vector3(move, 0.0f, 0.0f);
               transform.Translate(movement);
           }
           
