@@ -15,24 +15,30 @@ public class PlayerController : MonoBehaviour
      // Use this for initialization
      void Start()
      {
-
+         
      }
 
      // Update is called once per frame
      void FixedUpdate()
      {
-          Vector3 movement;
-          float move = Input.GetAxis("Horizontal");
+         Transform transform = GetComponent<Transform>();
+         
+          Vector3 movement = new Vector3(0.0f, 0.0f, 0.0f);
+          float move = Input.GetAxis("Horizontal") / 4;
           if (Input.GetButtonDown("Jump") == true && jumpcount != 0)
           {
                jumpcount--;
                movement = new Vector3(move, jumpHeight, 0.0f);
+               GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+               GetComponent<Rigidbody>().AddForce(movement * speed * Time.deltaTime);
           }
           else
           {
-               movement = new Vector3(move, 0.0f, 0.0f);
+              movement = new Vector3(move, 0.0f, 0.0f);
+              transform.Translate(movement);
           }
-          GetComponent<Rigidbody>().AddForce(movement * speed * Time.deltaTime);
+          
+          
      }
 
      //trigger when the ball hit something...
