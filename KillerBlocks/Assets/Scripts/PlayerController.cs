@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
      public int maxJump = 2;
      public int jumpcount = 2;
 
-
      Vector3 temp;
      float tempX;
      float tempY;
@@ -44,6 +43,7 @@ public class PlayerController : MonoBehaviour
           {
                jumpcount--;
                movement = new Vector3(move, jumpHeight, 0.0f);
+               GetComponent<AudioSource>().Play();
                GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
                GetComponent<Rigidbody>().AddForce(movement * speed * Time.deltaTime);
           }
@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
      {
           //reset the jumpcount to maxJump
           jumpcount = maxJump;
+
      }
 
      Vector3 giveZeroZ(float fX, float fY)
