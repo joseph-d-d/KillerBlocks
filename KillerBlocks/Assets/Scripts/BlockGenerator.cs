@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+
 public class BlockGenerator : MonoBehaviour
 {
      public GameObject SqaurePrefab = null;
@@ -20,7 +21,7 @@ public class BlockGenerator : MonoBehaviour
      {
 
           //StartCoroutine(GenerateBlocks());
-          if (count == 50)
+          if (count == 75)
           {
                spawnPrefab();
                count = 0;
@@ -37,7 +38,8 @@ public class BlockGenerator : MonoBehaviour
      void spawnPrefab()
      {
           spawnLocation = Player.transform.position;
-          spawnLocation.y += 15;
+          spawnLocation.y += 30;
+          spawnLocation.x = RandomPrefabGenerator.Next(-7, 7);
           typeOfPrefab = RandomPrefabGenerator.Next(1, 4);
           if (typeOfPrefab == 1)
           {
@@ -46,7 +48,7 @@ public class BlockGenerator : MonoBehaviour
           else if (typeOfPrefab == 2)
           {
 
-               Instantiate(LPrefab, spawnLocation, Quaternion.identity);
+               Instantiate(LPrefab, spawnLocation, Quaternion.Euler(spawnLocation));
           }
           else if (typeOfPrefab == 3)
           {

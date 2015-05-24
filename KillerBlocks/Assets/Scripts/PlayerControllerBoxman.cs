@@ -67,6 +67,7 @@ public class PlayerControllerBoxman : MonoBehaviour
 */
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class PlayerControllerBoxman : MonoBehaviour
 {
@@ -103,7 +104,7 @@ public class PlayerControllerBoxman : MonoBehaviour
         Transform transform = GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
         //reset the rotation to 0s
-        transform.rotation = Quaternion.FromToRotation(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f));
+        //transform.rotation = Quaternion.FromToRotation(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f));
         //reset the z-axis to 0s
         tempX = transform.position.x;
         tempY = transform.position.y;
@@ -115,7 +116,7 @@ public class PlayerControllerBoxman : MonoBehaviour
         if (Input.GetButton("right"))
         {
             anim.SetBool("Running", true);
-            transform.position += transform.right * speed;
+            transform.position += -transform.right * speed;
 
             if (PlayerHasturnedLeft == true)
             {
@@ -139,6 +140,7 @@ public class PlayerControllerBoxman : MonoBehaviour
 
         if (Input.GetButton("Jump") && jumpcount != 0)
         {
+            GetComponent<AudioSource>().Play();
             moveDirection.y = jumpSpeed;
             jumpcount--;
         }
@@ -155,8 +157,13 @@ public class PlayerControllerBoxman : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        
         if (controller.collisionFlags == CollisionFlags.CollidedBelow)
-            Destroy(gameObject);
+        {
+             GetComponent<AudioSource>().Play();
+             //Destroy(gameObject);
+        }
+             
     }
 
     Vector3 giveZeroZ(float fX, float fY)
