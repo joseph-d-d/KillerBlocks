@@ -2,7 +2,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets/Scripts/PlayerController.cs" Line="23" Column="32" />
+=======
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="44" Column="2" />
+>>>>>>> da08d67e29a137e9d32a3bf581cf3766c787dc1d
       <File FileName="Assets/Scripts/CameraController.cs" Line="17" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
