@@ -3,7 +3,9 @@ using System.Collections;
 
 public class UpdateWalls : MonoBehaviour {
 
-	Vector3 initialPos;
+	Vector3 initialScale;
+	Vector3 maxHeight;
+	Vector3 temp = new Vector3 (0f, 10f, 0f);
 	public GameObject player;
 	float distance; 
 	float currentHeight;
@@ -11,8 +13,7 @@ public class UpdateWalls : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		initialPos = transform.position;
-		currentHeight = 1;
+		initialScale = transform.localScale;
 	}
 	
 	// Update is called once per frame
@@ -22,23 +23,22 @@ public class UpdateWalls : MonoBehaviour {
 		distance = player.transform.position.y - 0.5F;
 		maxDistance = updateMaxDistance (maxDistance, distance);
 
-		transform.localScale = findScale (1, maxDistance);
-		currentHeight = transform.localScale;
+		maxHeight = getMaxHeight (maxDistance);
+		
+		transform.localScale = maxHeight + initialScale + 2*temp;
 
-		Vector3 temp = new Vector3 (initialPos.x, initialPos.y, initialPos.x);
-		temp = initialPos - temp;
-	
-		Vector3 adjust = new Vector3 (initialPos.x, temp.y, initialPos.z);
-		transform.position = adjust;
 	}
 
-	float findScale(float increase, float number){
-		return ((number + increase) / number);
-	}
 
 	float updateMaxDistance(float maxDistance, float distance){
 		if (distance > maxDistance) {
 			maxDistance = distance;
 		}
+		return maxDistance;
+	}
+
+	Vector3 getMaxHeight(float f){
+		Vector3 h = new Vector3(0f, f, 0f);
+		return h;
 	}
 }
