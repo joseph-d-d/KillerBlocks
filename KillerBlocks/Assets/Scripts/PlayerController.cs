@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
      //the speed of the player
      public float speed;
      //the height when the player jumped
-     public float jumpHeight;
+     public float jumpHeight = 10;
 
      //how many times the player can jump
      public int maxJump = 2;
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
                movement = new Vector3(move, jumpHeight, 0.0f);
                GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
                GetComponent<Rigidbody>().AddForce(movement * speed * Time.deltaTime);
+               transform.rotation = Quaternion.LookRotation(movement);
           }
           else
           {
