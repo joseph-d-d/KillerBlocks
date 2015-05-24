@@ -9,25 +9,47 @@ public class BlockGenerator : MonoBehaviour
      public GameObject PlusPrefab = null;
      public GameObject IPrefab = null;
      System.Random RandomPrefabGenerator = new System.Random();
+     int typeOfPrefab;
+     int count = 0;
+     Vector3 spawnLocation;
+     public GameObject Player = null;
 
 
      // Update is called once per frame
      void Update()
      {
-          int typeOfPrefab = RandomPrefabGenerator.Next(1, 3);
 
-          if(typeOfPrefab == 1)
+          //StartCoroutine(GenerateBlocks());
+          if (count == 50)
           {
-               Instantiate(SqaurePrefab);
+               spawnPrefab();
+               count = 0;
+          }
+          count++;
+     }
+     IEnumerator GenerateBlocks()
+     {
+          
+          yield return new WaitForSeconds(5f);
+         
+
+     }
+     void spawnPrefab()
+     {
+          spawnLocation = Player.transform.position;
+          spawnLocation.y += 10;
+          typeOfPrefab = RandomPrefabGenerator.Next(1, 3);
+          if (typeOfPrefab == 1)
+          {
+               Instantiate(SqaurePrefab, spawnLocation, Quaternion.identity);
           }
           else if (typeOfPrefab == 2)
           {
-               Instantiate(LPrefab);
+               Instantiate(LPrefab, spawnLocation, Quaternion.identity);
           }
           else if (typeOfPrefab == 3)
           {
-               Instantiate(PlusPrefab);
+               Instantiate(PlusPrefab, spawnLocation, Quaternion.identity);
           }
-
      }
 }
