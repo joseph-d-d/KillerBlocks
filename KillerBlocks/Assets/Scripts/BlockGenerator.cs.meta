@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 5d2653a3eefb452498e79539b3031933
-timeCreated: 1432422219
+timeCreated: 1432435767
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - SqaurePrefab: {fileID: 183770, guid: 8d3d8521eb75b0440a571f22b0218b10, type: 2}
+  - LPrefab: {fileID: 183770, guid: 8d3d8521eb75b0440a571f22b0218b10, type: 2}
+  - PlusPrefab: {instanceID: 0}
+  - IPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
