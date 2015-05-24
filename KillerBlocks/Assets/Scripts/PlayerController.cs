@@ -12,6 +12,12 @@ public class PlayerController : MonoBehaviour
      public int maxJump = 2;
      public int jumpcount = 2;
 
+
+     Vector3 temp;
+     float tempX;
+     float tempY;
+
+
      // Use this for initialization
      void Start()
      {
@@ -21,8 +27,17 @@ public class PlayerController : MonoBehaviour
      // Update is called once per frame
      void FixedUpdate()
      {
+
          Transform transform = GetComponent<Transform>();
-         
+
+         //reset the rotation to 0s
+         transform.rotation = Quaternion.FromToRotation(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f));
+         //reset the z-axis to 0s
+         tempX = transform.position.x;
+         tempY = transform.position.y;
+         temp = giveZeroZ(tempX, tempY);
+         transform.position = temp;
+
           Vector3 movement = new Vector3(0.0f, 0.0f, 0.0f);
           float move = Input.GetAxis("Horizontal") / 4;
           if (Input.GetButtonDown("Jump") == true && jumpcount != 0)
@@ -46,5 +61,11 @@ public class PlayerController : MonoBehaviour
      {
           //reset the jumpcount to maxJump
           jumpcount = maxJump;
+     }
+
+     Vector3 giveZeroZ(float fX, float fY)
+     {
+         Vector3 t = new Vector3(fX, fY, 0f);
+         return t;
      }
 }
