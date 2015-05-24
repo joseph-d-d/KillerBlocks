@@ -3,69 +3,70 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-     //the speed of the player
-     public float speed;
-     //the height when the player jumped
-     public float jumpHeight;
+    public float speed = 6.0f;
+    public float jumpSpeed = 8.0f;
+    public float gravity = 20.0f;
 
-     //how many times the player can jump
-     public int maxJump = 2;
-     public int jumpcount = 2;
+    //how many times the player can jump
+    public int maxJump = 2;
+    public int jumpcount = 2;
 
+    private Vector3 moveDirection = Vector3.zero;
 
-     Vector3 temp;
-     float tempX;
-     float tempY;
+    Vector3 temp;
+    float tempX;
+    float tempY;
 
+    void Update()
+    {
+        Transform transform = GetComponent<Transform>();
 
-     // Use this for initialization
-     void Start()
-     {
-         
-     }
+        //reset the rotation to 0s
+        transform.rotation = Quaternion.FromToRotation(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f));
+        //reset the z-axis to 0s
+        tempX = transform.position.x;
+        tempY = transform.position.y;
+        temp = giveZeroZ(tempX, tempY);
+        transform.position = temp;
 
-     // Update is called once per frame
-     void FixedUpdate()
-     {
+        CharacterController controller = GetComponent<CharacterController>();
+        float move = Input.GetAxis("Horizontal");
 
-         Transform transform = GetComponent<Transform>();
+        if (controller.isGrounded)
+        {
+            jumpcount = maxJump;
+            moveDirection = new Vector3(move, 0, 0);
+            moveDirection = transform.TransformDirection(moveDirection);
+            moveDirection *= speed;
+        }
+        else
+        {
+            move *= 5;
+            moveDirection.x = move;
+        }
 
-         //reset the rotation to 0s
-         transform.rotation = Quaternion.FromToRotation(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f));
-         //reset the z-axis to 0s
-         tempX = transform.position.x;
-         tempY = transform.position.y;
-         temp = giveZeroZ(tempX, tempY);
-         transform.position = temp;
+        if (Input.GetButton("Jump") && jumpcount != 0)
+        {
+            moveDirection.y = jumpSpeed;
+            jumpcount--;
+        }
 
-          Vector3 movement = new Vector3(0.0f, 0.0f, 0.0f);
-          float move = Input.GetAxis("Horizontal") / 4;
-          if (Input.GetButtonDown("Jump") == true && jumpcount != 0)
-          {
-               jumpcount--;
-               movement = new Vector3(move, jumpHeight, 0.0f);
-               GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
-               GetComponent<Rigidbody>().AddForce(movement * speed * Time.deltaTime);
-          }
-          else
-          {
-              movement = new Vector3(move, 0.0f, 0.0f);
-              transform.Translate(movement);
-          }
-          
-          
-     }
+        moveDirection.y -= gravity * Time.deltaTime;
+        controller.Move(moveDirection * Time.deltaTime);
 
-     //trigger when the ball hit something...
-     void OnCollisionEnter(Collision collision)
-     {
-          //reset the jumpcount to maxJump
-          jumpcount = maxJump;
-     }
+    }
 
-     Vector3 giveZeroZ(float fX, float fY)
-     {
-         Vector3 t = new Vector3(fX, fY, 0f);
-         return t;
-     }
+    void OnCollisionEnter(Collision collision)
+    {
+        CharacterController controller = GetComponent<CharacterController>();
+        if (controller.collisionFlags == CollisionFlags.CollidedBelow)
+            Destroy(gameObject);
+
+    }
+
+    Vector3 giveZeroZ(float fX, float fY)
+    {
+        Vector3 t = new Vector3(fX, fY, 0f);
+        return t;
+    }
 }
